@@ -1,0 +1,23 @@
+$kind: http-request
+url: "{{baseUrl}}/booking/{{bookingId}}"
+method: GET
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status 200\", () => pm.response.to.have.status(200));\r
+
+      \r
+
+      const json = pm.response.json();\r
+
+      pm.test(\"Jméno sedí\", () =>
+      pm.expect(json.firstname).to.eql(\"Jana\"));\r
+
+      pm.test(\"Příjmení sedí\", () =>
+      pm.expect(json.lastname).to.eql(\"Test\"));\r
+
+      pm.test(\"Cena sedí\", () => pm.expect(json.totalprice).to.eql(1500));\r
+
+      pm.test(\"Datum příjezdu sedí\", () =>
+      pm.expect(json.bookingdates.checkin).to.eql(\"2026-12-01\"));"
+    language: text/javascript
+order: 1009

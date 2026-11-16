@@ -1,0 +1,16 @@
+$kind: http-request
+url: "{{baseUrl}}/booking/{{bookingId}}"
+method: DELETE
+headers:
+  Cookie: token={{token}}
+  Content-Type: application/json
+body:
+  type: json
+  content: ""
+scripts:
+  - type: afterResponse
+    code: "// otestování statusu 201 (zvláštnost Restful-booker) - běžné API by ale mělo pro DELETE vracet 204 No Content, případně 200 OK\r
+
+      pm.test(\"Status 201\", () => pm.response.to.have.status(201));"
+    language: text/javascript
+order: 3000

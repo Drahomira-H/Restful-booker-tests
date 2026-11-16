@@ -1,0 +1,53 @@
+$kind: http-request
+url: "{{baseUrl}}/booking"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"firstname\": \"Jana\",\r
+
+    \    \"lastname\": \"Test\",\r
+
+    \    \"totalprice\": 1500,\r
+
+    \    \"depositpaid\": true,\r
+
+    \    \"bookingdates\": {\r
+
+    \        \"checkin\": \"2026-12-01\",\r
+
+    \        \"checkout\": \"2026-12-05\"\r
+
+    \    },\r
+
+    \    \"additionalneeds\": \"Breakfast\"\r
+
+    }"
+scripts:
+  - type: afterResponse
+    code: "// test statusu\r
+
+      pm.test(\"Status 200\", () => pm.response.to.have.status(200));\r
+
+      // test rychlosti - 1000 ms bylo moc přísné pro veřejné cvičné API\r
+
+      pm.test(\"Odpověď do 3000 ms\", () => pm.expect(pm.response.responseTime).to.be.below(3000));\r
+
+      \r
+
+      // test struktury/hodnot\r
+
+      const json = pm.response.json();\r
+
+      pm.test(\"Vrací bookingid\", () => pm.expect(json.bookingid).to.be.a(\"number\"));\r
+
+      pm.test(\"Jméno sedí\", () => pm.expect(json.booking.firstname).to.eql(\"Jana\"));\r
+
+      \r
+
+      // nastavení bookingId do environment pro další požadavky\r
+
+      pm.environment.set(\"bookingId\", json.bookingid);"
+    language: text/javascript
+order: 1000

@@ -1,0 +1,26 @@
+$kind: http-request
+description: ""
+url: "{{baseUrl}}/auth"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"username\": \"admin\",\r
+
+    \    \"password\": \"password123\"\r
+
+    }"
+scripts:
+  - type: afterResponse
+    code: "// otestování statusu 200 (zvláštnost Restful-booker) - běžné API by ale mělo pro CREATE vracet 201 Created\r
+
+      pm.test(\"Status 200\", () => pm.response.to.have.status(200));\r
+
+      \r
+
+      // nastavení tokenu do proměnné environment\r
+
+      pm.environment.set(\"token\", pm.response.json().token);"
+    language: text/javascript
+order: 1000
