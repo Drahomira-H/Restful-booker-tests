@@ -1,0 +1,17 @@
+name: API tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Stažení repozitáře
+        uses: actions/checkout@v4
+
+      - name: Spuštění Postman kolekce
+        uses: postmanlabs/postman-cli-action@v1
+        with:
+          command: 'collection run postman/collections/Restful-booker --environment postman/environments/restful-booker.environment.yaml'
