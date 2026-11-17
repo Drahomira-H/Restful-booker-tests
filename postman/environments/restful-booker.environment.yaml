@@ -1,7 +1,7 @@
 name: restful-booker
 values:
   - key: baseUrl
-    value: ''
+    value: 'https://restful-booker.herokuapp.com'
   - key: bookingId
     value: ''
   - key: token
