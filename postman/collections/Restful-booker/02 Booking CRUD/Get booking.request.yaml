@@ -9,15 +9,12 @@ scripts:
 
       const json = pm.response.json();\r
 
-      pm.test(\"Jméno sedí\", () =>
-      pm.expect(json.firstname).to.eql(\"Jana\"));\r
+      pm.test(\"Jméno sedí\", () => pm.expect(json.firstname).to.eql(\"Neexistující\"));\r
 
-      pm.test(\"Příjmení sedí\", () =>
-      pm.expect(json.lastname).to.eql(\"Test\"));\r
+      pm.test(\"Příjmení sedí\", () => pm.expect(json.lastname).to.eql(\"Test\"));\r
 
       pm.test(\"Cena sedí\", () => pm.expect(json.totalprice).to.eql(1500));\r
 
-      pm.test(\"Datum příjezdu sedí\", () =>
-      pm.expect(json.bookingdates.checkin).to.eql(\"2026-12-01\"));"
+      pm.test(\"Datum příjezdu sedí\", () => pm.expect(json.bookingdates.checkin).to.eql(\"2026-12-01\"));"
     language: text/javascript
 order: 1009
